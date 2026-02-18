@@ -1,0 +1,22 @@
+version: 1
+services:
+  - type: web
+    name: lost-found-api
+    runtime: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: MONGODB_URI
+        value: # Add your MongoDB Atlas URI
+      - key: JWT_SECRET
+        value: # Add your JWT secret
+      - key: NODE_ENV
+        value: production
+
+  - type: static
+    name: lost-found-app
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/dist
+    envVars:
+      - key: VITE_API_URL
+        value: # Will be replaced with your API URL
